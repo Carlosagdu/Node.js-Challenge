@@ -1,0 +1,29 @@
+{
+  "name": "node.js-_challenge",
+  "version": "1.0.0",
+  "description": "Browser-based chat app using NODE.JS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carlosagdu/Node.js-_Challenge.git"
+  },
+  "author": "Carlos Aguilar Duarte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Carlosagdu/Node.js-_Challenge/issues"
+  },
+  "homepage": "https://github.com/Carlosagdu/Node.js-_Challenge#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "randomcolor": "^0.6.2",
+    "socket.io": "^2.3.0",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
