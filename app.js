@@ -1,18 +1,31 @@
+require("dotenv").config();
 var http = require("http");
 var express = require("express");
 var socketio = require("socket.io");
 var formatMessage = require("./assets/messages");
 var { userJoin, getCurrentUser, userLeaves, getRoomUsers } = require("./assets/users");
 
-
 var app = express();
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 var server = http.createServer(app);
 var io = socketio(server);
-var randomColor = require("randomcolor");
-var uuid = require("uuid");
+// Requiring route
+var indexRoutes = require("./routes/index");
+
+// DB CONNECTION
+mongoose.connect(process.env.DATABASEURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("Connected to DB!"))
+    .catch(error => console.log(error.message));
+
 
 //middlewares
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/client'));
+// use indexRoutes
+app.use(indexRoutes);
 
 var botName = "TvGram Bot";
 

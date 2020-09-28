@@ -14,30 +14,24 @@
 <body>
     <div class="join-container">
         <header class="join-header">
-            <h1><i class="fas fa-smile"></i> TvGram</h1>
+            <h1><i class="fas fa-smile"></i> Register form</h1>
         </header>
         <main class="join-main">
-            <form action="/login" method="POST">
+            <form action="/register" method="POST">
                 <div class="form-control">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" placeholder="Enter username..." required />
                 </div>
                 <div class="form-control">
-                    <label for="password">password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter password..." required />
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" placeholder="Enter email..." required />
                 </div>
                 <div class="form-control">
-                    <label for="room">Room</label>
-                    <select name="room" id="room">
-                        <option value="Room1">Room1</option>
-                        <option value="Room2">Room2</option>
-                        <option value="Room3">Room3</option>
-                        <option value="Room4">Room4</option>
-                    </select>
+                    <label for="username">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter password..." required />
                 </div>
-                <button type="submit" class="btn">Log in & Chat</button>
+                <button type="submit" class="btn">Register</button>
             </form>
-            <button class="btn"><a href="/register">Register in</a></button>
         </main>
     </div>
 </body>
