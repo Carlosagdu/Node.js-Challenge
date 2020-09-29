@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app",
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "jest": "^26.4.2",
     "nodemon": "^2.0.4"
   }
 }
