@@ -9,6 +9,7 @@ The aim is to develop a browser-based chat application where multiple users can 
 The technologies used for this projects are: 
 - Node.js v12.18.3 :arrow_right: Backend language
 - Express v4.17.1 :arrow_right: Backend framework
+- Socket.io v2.3.0 :arrow_right: Real-time event-based communication library
 - MongoDB :arrow_right: Database
 - Vanilla JS :arrow_right: Frontend language
 - Jest.js :arrow_right: Testing Framework
@@ -18,7 +19,7 @@ The following Bonus were achieved during the development of the app
 
 - [X] Have more than one chatroom.
 - [X] Unit test the functionality you prefer.
-- [] Handle messages that are not understood or any exceptions raised within the bot.
+- [ ] Handle messages that are not understood or any exceptions raised within the bot.
 
 ## Set Up
 ***Please be aware that you MUST set up your own DATABASEURL environment variable for the proper working order.*** \
