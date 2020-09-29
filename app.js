@@ -1,17 +1,19 @@
 require("dotenv").config();
-var http = require("http");
-var express = require("express");
-var socketio = require("socket.io");
-var formatMessage = require("./assets/messages");
-var { userJoin, getCurrentUser, userLeaves, getRoomUsers } = require("./assets/users");
+const http = require("http");
+const express = require("express");
+const socketio = require("socket.io");
+const formatMessage = require("./utils/messages");
+const { userJoin, getCurrentUser, userLeaves, getRoomUsers } = require("./utils/users");
 
-var app = express();
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var server = http.createServer(app);
-var io = socketio(server);
+const app = express();
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const server = http.createServer(app);
+const io = socketio(server);
+const chatbot = require("./CHATBOT_SERVICE/chatbot");
+
 // Requiring route
-var indexRoutes = require("./routes/index");
+const indexRoutes = require("./routes/index");
 
 // DB CONNECTION
 mongoose.connect(process.env.DATABASEURL, {
@@ -27,7 +29,7 @@ app.use(express.static(__dirname + '/client'));
 // use indexRoutes
 app.use(indexRoutes);
 
-var botName = "TvGram Bot";
+const botName = "TvGram Bot";
 
 // Run when client connects
 io.on('connection', socket => {
@@ -53,8 +55,11 @@ io.on('connection', socket => {
     // Listen for chatMessage 
     socket.on("chatMessage", msg => {
         const user = getCurrentUser(socket.id);
-        // emit chatMessage to frontend
-        io.to(user.room).emit("message", formatMessage(user.username, msg));
+        // pass the msg to chatbot service
+        chatbot(msg, user.username).then(result => {
+            // emit chatMessage to frontend
+            io.to(user.room).emit("message", formatMessage(result.user, result.message));
+        })
     });
 
     // Run when client disconnects

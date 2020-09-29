@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
-var path = require("path");
-var bcrypt = require("bcrypt");
-var User = require("../models/userModel");
-// landpage box
+const express = require("express");
+const router = express.Router();
+const path = require("path");
+const bcrypt = require("bcrypt");
+const User = require("../models/userModel");
+// landing page
 router.get("/", (req, res) => {
     res.sendFile("index.html", { root: path.join(__dirname, "../client") });
 });
@@ -14,16 +14,26 @@ router.get("/register", (req, res) => {
 // Saving user to DB
 router.post("/register", async (req, res) => {
     try {
-        // Hashing the password for DB insertion
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        var newUser = new User({ username: req.body.username, email: req.body.email, password: hashedPassword });
-        User.create(newUser).then(user => {
-            console.log(user.username + " has been saved to DB");
-            res.redirect("/")
-        }).catch(err => {
-            console.log(err);
-            return res.redirect("/register");
-        })
+        // check if email already exist
+        const foundUserEmail = await User.find({ email: req.body.email });
+        // if exists don't let user register
+        if (foundUserEmail) {
+            res.send("Email already in use, try a different Email");
+        }
+        // otherwise create the user
+        else {
+            // Hashing password for the new user
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            const newUser = new User({ username: req.body.username, email: req.body.email, password: hashedPassword });
+            // insert user into DB
+            User.create(newUser).then(user => {
+                console.log(user.username + " has been saved to DB");
+                res.redirect("/")
+            }).catch(err => {
+                console.log(err);
+                return res.redirect("/register");
+            })
+        }
     } catch {
         res.status(500).send();
     }
@@ -42,7 +52,7 @@ router.post("/login", async (req, res) => {
         }
         // If not, we'll not allow user to enter room
         else {
-            res.send("Not Allowed, try again");
+            res.send("Wrong password, try again");
         }
     }
     catch {

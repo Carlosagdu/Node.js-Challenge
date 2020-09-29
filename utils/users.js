@@ -1,4 +1,3 @@
-// HERE CONNECT TO DB AND SAVE THE USERS
 const users = [];
 
 // Join user to chat 
