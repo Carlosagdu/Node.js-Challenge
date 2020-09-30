@@ -16,8 +16,8 @@ router.post("/register", async (req, res) => {
     try {
         // check if email already exist
         const foundUserEmail = await User.find({ email: req.body.email });
-        // if exists don't let user register
-        if (foundUserEmail) {
+        // if email exists don't let user register
+        if (foundUserEmail.length > 0) {
             res.send("Email already in use, try a different Email");
         }
         // otherwise create the user
